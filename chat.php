@@ -180,7 +180,7 @@ function autoScroll(){try{document.getElementById("text").scrollIntoView();}catc
 	echo '<div><a href="chats.php">'.MP::x($lng['back']).'</a>';
 	echo ' <a href="chat.php?c='.$id.'&upd=1">'.MP::x($lng['refresh']).'</a></div>';
 	$sname = $name;
-	if(mb_strlen($sname, 'UTF-8') > 30) $sname = mb_substr($sname, 0, 30, 'UTF-8');
+	if(mb_strlen($sname ?? '', 'UTF-8') > 30) $sname = mb_substr($sname, 0, 30, 'UTF-8');
 	echo '<h3>'.MP::dehtml($name).'</h3>';
 	if(!$reverse) {
 		printInputField();

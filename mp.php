@@ -20,7 +20,7 @@ class MP {
 	static function dehtml($s) {
 		return static::x(str_replace('<', '&lt;',
 		str_replace('>', '&gt;',
-		str_replace('&', '&amp;', $s))));
+		str_replace('&', '&amp;', $s ?? ''))));
 	}
 
 	static function getId($MP, $a) {
@@ -101,7 +101,7 @@ class MP {
 		return null;
 	}
 
-	static function parseMessageAction($a, $mfn, $mfid, $n, $lng, $chat=true, $MP) {
+	static function parseMessageAction($a, $mfn, $mfid, $n, $lng, $chat, $MP) {
 		$fn = $mfn !== null ? $mfn : $n;
 		$txt = '';
 		try {
@@ -155,7 +155,7 @@ class MP {
 					$uid = MP::getId($MP, $m['from_id']);
 					$mname1 = MP::getNameFromId($MP, $uid);
 				}
-				if(mb_strlen($mname1, 'UTF-8') > 30)
+				if(mb_strlen($mname1 ?? '', 'UTF-8') > 30)
 					$mname1 = mb_substr($mname1, 0, 30, 'UTF-8');
 				$mname = null;
 				$l = false;
@@ -179,8 +179,8 @@ class MP {
 						$fwname = MP::getNameFromId($MP, $fwid, true);
 					}
 				}
-				if(mb_strlen($fwname, 'UTF-8') > 30)
-					$fwname = mb_substr($fwname, 0, 30, 'UTF-8');
+				if(mb_strlen($fwname ?? '', 'UTF-8') > 30)
+					$fwname = mb_substr($fwname ?? '', 0, 30, 'UTF-8');
 				if(!isset($m['action'])) {
 					echo '<div class="m" id="msg_'.$id.'_'.$m['id'].'">';
 					if(!$pm && $uid != null && $l) {
